@@ -1,0 +1,33 @@
+.conversation-flow {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.conversation-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  min-height: 400px;
+}
+
+.error-message {
+  background-color: #fee;
+  color: #c33;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #fcc;
+}
+
+@media (max-width: 768px) {
+  .conversation-flow {
+    padding: 10px;
+  }
+
+  .conversation-container {
+    padding: 20px;
+  }
+}
+
