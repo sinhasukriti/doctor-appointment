@@ -1,4 +1,3 @@
-import React from 'react';
 import ConversationFlow from './components/ConversationFlow';
 import './App.css';
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   ConversationPhase,
   ConversationState,
@@ -7,7 +7,6 @@ import {
   PatientInfo,
 } from '../types';
 import { getAvailableTimeSlots, createAppointment } from '../services/calendlyService';
-import { APPOINTMENT_TYPES } from '../config/appointmentTypes';
 import GreetingPhase from './phases/GreetingPhase';
 import UnderstandingNeedsPhase from './phases/UnderstandingNeedsPhase';
 import AppointmentTypePhase from './phases/AppointmentTypePhase';
@@ -133,16 +132,17 @@ const ConversationFlow: React.FC = () => {
     try {
       // In a real implementation, you would get the event type URI from Calendly
       const eventTypeUri = `event_type_${state.appointmentType}`;
+      const patientInfo = state.patientInfo as PatientInfo;
       
       await createAppointment(
         eventTypeUri,
-        state.patientInfo.email,
-        state.patientInfo.name,
+        patientInfo.email,
+        patientInfo.name,
         state.selectedSlot.start,
         [
           {
             question: 'Reason for visit',
-            answer: state.patientInfo.reason,
+            answer: patientInfo.reason,
           },
         ]
       );
@@ -176,7 +176,7 @@ const ConversationFlow: React.FC = () => {
         return (
           <AppointmentTypePhase
             onTypeSelected={handleAppointmentTypeSelected}
-            reason={state.reason}
+            reason={state.reason || ''}
           />
         );
 
@@ -217,7 +217,7 @@ const ConversationFlow: React.FC = () => {
           <CompletedPhase
             appointmentType={state.appointmentType!}
             selectedSlot={state.selectedSlot!}
-            patientInfo={state.patientInfo!}
+            patientInfo={state.patientInfo as PatientInfo}
           />
         );
 

@@ -11,19 +11,6 @@ const CALENDLY_USER_URI = import.meta.env.VITE_CALENDLY_USER_URI || '';
 // Mock data for development when Calendly API is not configured
 const USE_MOCK_DATA = !CALENDLY_TOKEN || !CALENDLY_USER_URI;
 
-interface CalendlyEventType {
-  uri: string;
-  name: string;
-  duration: number;
-}
-
-interface CalendlyAvailabilitySchedule {
-  rules: Array<{
-    intervals: Array<{ from: string; to: string }>;
-    wday: string;
-  }>;
-}
-
 interface CalendlyEvent {
   uri: string;
   name: string;
@@ -54,7 +41,7 @@ export const getDoctorSchedule = async (): Promise<{
   }
 
   try {
-    const response = await axios.get(
+    await axios.get(
       `${CALENDLY_API_BASE}/user_availability_schedules`,
       {
         headers: {
@@ -66,7 +53,6 @@ export const getDoctorSchedule = async (): Promise<{
       }
     );
 
-    const schedules = response.data.collection;
     // Process and return schedule data
     return {
       workingHours: [],
@@ -159,12 +145,12 @@ export const getAvailableTimeSlots = async (
   }
 
   try {
-    const schedule = await getDoctorSchedule();
+    await getDoctorSchedule();
     const startDate = preferredDate || new Date().toISOString().split('T')[0];
     const endDate = new Date(startDate);
     endDate.setDate(endDate.getDate() + 7);
 
-    const existingAppointments = await getExistingAppointments(
+    await getExistingAppointments(
       startDate,
       endDate.toISOString()
     );
