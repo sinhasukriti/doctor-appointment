@@ -48,8 +48,8 @@ An intelligent appointment booking system built with React, TypeScript, and Cale
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd Assesment
+git clone https://github.com/sinhasukriti/doctor-appointment.git
+cd doctor-appointment
 ```
 
 2. Install dependencies:
@@ -133,4 +133,3 @@ For more information, visit: https://developer.calendly.com/
 ## License
 
 MIT
-
